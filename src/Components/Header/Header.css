@@ -1,7 +1,7 @@
 .header-nav{
     display: flex;
     justify-content: space-between;
-    padding: 20px;
+    padding: 10px;
     align-items: center;
     background-color:lavender;
     box-shadow: 1px 1px 10px grey;
@@ -10,4 +10,15 @@
     width: 200px;
     display: flex;
     justify-content: space-around;
+    margin: 0;
+}
+
+.nav-right-options h3 {
+    font-weight: 300;
+}
+
+.app-name {
+    font-weight: 800;
+    font-size: 30px;
+    margin: 0 10px;
 }
