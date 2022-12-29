@@ -1,0 +1,3 @@
+fileignoreconfig:
+- filename: src/Components/Home/Home.js
+  checksum: ef18cab213347af3520982080ee7af2427eabf3ecce48391764908ef24e006dc

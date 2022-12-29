@@ -1,4 +1,11 @@
 .home-comp {
     background-color:rgb(171, 242, 218);
-    height: 100vh;
+    height: 100%;
+}
+.movies-list{
+    padding: 20px;
+    display: flex;
+    flex-wrap:wrap;
+    justify-content: space-around;
+    gap: 20px;
 }

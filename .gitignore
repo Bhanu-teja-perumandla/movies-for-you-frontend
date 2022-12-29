@@ -11,6 +11,9 @@
 # production
 /build
 
+#access-keys
+/src/access-info.js
+
 # misc
 .DS_Store
 .env.local
