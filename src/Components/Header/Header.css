@@ -1,0 +1,13 @@
+.header-nav{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    align-items: center;
+    background-color:lavender;
+    box-shadow: 1px 1px 10px grey;
+}
+.nav-right-options{
+    width: 200px;
+    display: flex;
+    justify-content: space-around;
+}
