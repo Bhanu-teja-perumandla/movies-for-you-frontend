@@ -14,6 +14,12 @@ const Home = () => {
     },[]);
 
     let make_api_call = async ()=>{
+    if (JSON.parse(localStorage.getItem("popularMovies"))){
+        let popularMovies = JSON.parse(localStorage.getItem("popularMovies"))
+        console.log("getting values from local storage");
+        updatePopularMovies(popularMovies)
+    }
+    else{
      try{
      let raw_response = await fetch("https://api.themoviedb.org/3/movie/popular?api_key="+keys.tmdbApiKey);
      let response = await raw_response.json();
@@ -28,10 +34,12 @@ const Home = () => {
               yourRating:0
           }
         })
+        localStorage.setItem("popularMovies",JSON.stringify(movies));
         updatePopularMovies(movies);
        }catch(e){
           console.log("error"+e)
         }
+    }
     }
 
     function updateYourRating(event, movie_id) {
@@ -40,11 +48,15 @@ const Home = () => {
         const yesOrNo = /^([0-9]+)$/.test(value)
         let newRating = yesOrNo ? (value>10? 10: (value.length>2? value.substring(1, value.length): value)): 0
         console.log(newRating)
+        
         updatePopularMovies(prevMovies => {
-            return prevMovies.map(movie=> {
+            let popularMovies = prevMovies.map(movie=> {
                  return movie.id === movie_id ? {...movie, yourRating:newRating} : movie
                })
+               localStorage.setItem("popularMovies",JSON.stringify(popularMovies));
+               return popularMovies;
         })
+
     }
 
     return(
