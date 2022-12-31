@@ -30,7 +30,7 @@
 .movie-title {
     margin: 5px;
     height: 60px;
-    font-size: 16px;
+    font-size: 1.80em;
     display: flex;
     align-items: center;
 }
@@ -40,4 +40,18 @@
     font-weight: bold;
     font-size: 15px;
     color: rgb(34, 130, 248);
+}
+
+#your-rating {
+    width: 18px;
+    background: rgba(157, 222, 238, 0.7);
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 3px;
+    font-weight: 800;
+}
+
+.your-rating {
+    font-weight: 600;
+    font-size: 1.20em;
 }

@@ -19,19 +19,32 @@ const Home = () => {
      let response = await raw_response.json();
      let results = response.results;
         let movies = results.map((ele)=>{
-          let x = {
+          return {
+              id:ele.id,
               movieName:ele.original_title,
               rating:ele.vote_average,
               poster:"http://image.tmdb.org/t/p/w500/"+ele.poster_path,
               description:ele.overview,
-
+              yourRating:0
           }
-          return x;
         })
         updatePopularMovies(movies);
        }catch(e){
           console.log("error"+e)
         }
+    }
+
+    function updateYourRating(event, movie_id) {
+        const value = event.target.value
+        console.log(value)
+        const yesOrNo = /^([0-9]+)$/.test(value)
+        let newRating = yesOrNo ? (value>10? 10: (value.length>2? value.substring(1, value.length): value)): 0
+        console.log(newRating)
+        updatePopularMovies(prevMovies => {
+            return prevMovies.map(movie=> {
+                 return movie.id === movie_id ? {...movie, yourRating:newRating} : movie
+               })
+        })
     }
 
     return(
@@ -40,10 +53,14 @@ const Home = () => {
      <div className="movies-list">
          {popularMovies.map((movie)=>{
     return (<MovieCard 
+        key={movie.id}
         movieName={movie.movieName}
         rating={movie.rating}
+        movieId={movie.id}
         description={movie.description}
         poster={movie.poster}
+        yourRating={movie.yourRating}
+        updateYourRating={updateYourRating}
      />)
          })
      }
