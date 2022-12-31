@@ -7,11 +7,13 @@ import "./Home.css"
 const Home = () => {
     
     const [popularMovies, updatePopularMovies] = useState([]);
+    const [trial, updateTrial] = useState(0);
    
     useEffect(()=>{
         make_api_call()
     },[]);
 
+    console.log(trial+"trail");
     let make_api_call = async ()=>{
     if (JSON.parse(localStorage.getItem("popularMovies"))){
         let popularMovies = JSON.parse(localStorage.getItem("popularMovies"))
@@ -42,6 +44,7 @@ const Home = () => {
     }
 
     function updateYourRating(event, movie_id) {
+        updateTrial(20);
         const value = event.target.value
         console.log(value)
         const yesOrNo = /^([0-9]+)$/.test(value)
