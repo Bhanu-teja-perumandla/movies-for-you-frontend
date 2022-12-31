@@ -7,7 +7,7 @@
     box-shadow: 1px 1px 10px grey;
 }
 .nav-right-options{
-    width: 200px;
+    width: 150px;
     display: flex;
     justify-content: space-around;
     margin: 0;
@@ -21,4 +21,19 @@
     font-weight: 800;
     font-size: 30px;
     margin: 0 10px;
+    text-decoration: none;
+    color: black;
+}
+
+.route-link {
+    color: black;
+    text-decoration: none;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 2px 6px;
+}
+
+.route-link:hover {
+    color: lavender;
+    background-color: black;
 }

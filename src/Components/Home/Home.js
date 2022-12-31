@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Header from "../Header/Header";
 import MovieCard from "../MovieCard/MovieCard";
 import keys from "../../access-info"
 import "./Home.css"
@@ -60,23 +59,20 @@ const Home = () => {
     }
 
     return(
-    <div className = "home-comp">
-     <Header></Header>
      <div className="movies-list">
          {popularMovies.map((movie)=>{
-    return (<MovieCard 
-        key={movie.id}
-        movieName={movie.movieName}
-        rating={movie.rating}
-        movieId={movie.id}
-        description={movie.description}
-        poster={movie.poster}
-        yourRating={movie.yourRating}
-        updateYourRating={updateYourRating}
-     />)
-         })
-     }
-     </div>
+            return (<MovieCard 
+                key={movie.id}
+                movieName={movie.movieName}
+                rating={movie.rating}
+                movieId={movie.id}
+                description={movie.description}
+                poster={movie.poster}
+                yourRating={movie.yourRating}
+                updateYourRating={updateYourRating}
+            />)
+                })
+            }
     </div>);
 }
 
