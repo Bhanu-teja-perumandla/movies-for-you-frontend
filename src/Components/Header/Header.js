@@ -15,9 +15,10 @@ const Header = ()=>{
                 <Link to="/favs" className="route-link">Favorites</Link>
                 <div className="dropdown">
                 <Link to="/"
-                onClick = {myFunction}
+                onMouseEnter={myFunction}
+                onMouseLeave={myFunction}
                 className="route-link">Options</Link>
-                <div id="myDropdown" className={`dropdown-content ${showProfileOptions?"show":""}`}>
+                <div id="myDropdown" className={`dropdown-content ${showProfileOptions?"show":""}`} onMouseLeave={myFunction}>
                     <Link to="/profile" onClick = {myFunction} className="profile-links">My Profile</Link>
                     <Link to="/signIn" onClick = {myFunction} className="profile-links">Sign In</Link>
                 </div>
