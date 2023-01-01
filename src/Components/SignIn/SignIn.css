@@ -1,0 +1,50 @@
+.signin-form {
+    display: flex;
+    flex-direction: column;
+    height: 300px;
+    width: 300px;
+    margin: 20px auto;
+    justify-content: center;
+    background-color: lavender;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px black;
+    align-items: center;
+}
+
+.form-input {
+    margin: 8px;
+    width: 200px;
+    height: 30px;
+    border:none;
+    box-shadow: 1px 1px 2px black;
+    border-radius: 3px;
+    padding: 0 8px;
+}
+
+.form-input:focus {
+    outline: 1px solid black;
+}
+
+.signin-btn {
+    color: black;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-size: 1.2em;
+    background-color: lavender;
+    padding: 2px 10px;
+    font-family: 'Chakra petch', sans-serif;
+    margin: 40px 0 0 0;
+}
+
+.signin-btn:hover {
+    color: lavender;
+    background-color: black;
+}
+
+.signup-text {
+    font-size: 0.8em;
+}
+
+.signup-link:hover {
+    color: black;
+}
