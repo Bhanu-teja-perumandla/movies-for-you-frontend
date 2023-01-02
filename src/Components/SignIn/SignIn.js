@@ -1,9 +1,11 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
 import { Link, Navigate } from "react-router-dom";
 import "./SignIn.css"
+import { UserContext } from "../../App";
 
-const SignIn = ()=>{
-    const [isSignedIn, setIsSignedIn] = useState(false)
+const SignIn = (props)=>{
+    const user = useContext(UserContext);
+    const [isSignedIn, setIsSignedIn] = useState(user?true:false)
     const [message, setMessage] = useState("")
     function handleSubmit(event) {
         event.preventDefault()
@@ -17,6 +19,10 @@ const SignIn = ()=>{
            if(user.email===newUser.email && user.password===newUser.password){
               message = ""
               setIsSignedIn(true)
+              props.setCurrentUser({
+                  name:`${user.firstName} ${user.lastName}`,
+                  email: user.email
+              })
            }
            else if(user.email===newUser.email ){
                message = "password incorrect"
