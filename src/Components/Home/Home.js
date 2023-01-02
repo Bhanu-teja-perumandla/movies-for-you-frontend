@@ -63,12 +63,7 @@ const Home = () => {
          {popularMovies.map((movie)=>{
             return (<MovieCard 
                 key={movie.id}
-                movieName={movie.movieName}
-                rating={movie.rating}
-                movieId={movie.id}
-                description={movie.description}
-                poster={movie.poster}
-                yourRating={movie.yourRating}
+                movie={movie}
                 updateYourRating={updateYourRating}
             />)
                 })
