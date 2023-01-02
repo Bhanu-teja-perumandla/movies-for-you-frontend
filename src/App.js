@@ -16,7 +16,7 @@ function App() {
   return (
     <UserContext.Provider value={currentUser}>
       <Router>
-        <Header/>
+        <Header setCurrentUser={setCurrentUser}/>
         <Routes>
           <Route exact path="/" element={<Home/>}/>
           <Route exact path="/profile" element={<Profile/>}/>

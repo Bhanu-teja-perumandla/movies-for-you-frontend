@@ -1,11 +1,21 @@
 import { useContext } from "react";
+import { Navigate } from "react-router-dom";
 import { UserContext } from "../../App";
+import "./Favorites.css"
 
 const Favorites = () => {
-    const value = useContext(UserContext);
+    const user = useContext(UserContext);
     return (
-    
-        <h1>these are my favs {value?value.name:"xyz"}</h1>
+        <>
+            {
+                user? 
+                <div className="favorites">
+                    <p>{user.name}'s favorites go here</p>
+                </div> 
+                : 
+                <Navigate to="/signIn"/>
+            }
+        </>
     )
 }
 

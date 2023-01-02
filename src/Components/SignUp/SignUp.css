@@ -9,6 +9,7 @@
     border-radius: 5px;
     box-shadow: 1px 1px 5px black;
     align-items: center;
+    padding: 15px 10px;
 }
 
 .form-input {
@@ -39,4 +40,12 @@
 .signup-btn:hover {
     color: lavender;
     background-color: black;
+}
+
+.signin-text {
+    font-size: 0.8em;
+}
+
+.signin-link:hover {
+    color: black;
 }

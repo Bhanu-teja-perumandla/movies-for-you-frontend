@@ -15,7 +15,7 @@ const SignIn = (props)=>{
         }
         let users = JSON.parse(localStorage.getItem("users"))||[]
         let message  = "Account not found"
-        users.map(user=>{
+        users.map(user => {
            if(user.email===newUser.email && user.password===newUser.password){
               message = ""
               setIsSignedIn(true)

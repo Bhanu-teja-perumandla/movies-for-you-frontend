@@ -40,6 +40,7 @@ const SignUp = ()=>{
                 <input type="password" required={true} placeholder="Password" id="password" className="form-input" onChange={handleChange}/>
                 <input type="password" required={true} placeholder="Confirm Password" id="confirmPassword" className="form-input" onChange={handleChange}/>
                 <button className="signup-btn">Sign Up</button>
+                <p className="signin-text">Already have an account? <Link to="/signIn" className="signin-link">Sign In</Link></p>
             </form>
         </>
     );

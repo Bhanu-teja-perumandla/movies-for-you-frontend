@@ -1,6 +1,24 @@
+import { useContext } from "react";
+import { Navigate } from "react-router-dom";
+import { UserContext } from "../../App";
+import "./Profile.css"
+
 const Profile = () => {
+
+    const user = useContext(UserContext)
     return (
-        <h1>this is my profile</h1>
+        <>
+            {
+                user? 
+                <div className="profile">
+                    <h2>Profile</h2>
+                    <p>Name  : {user.name}</p>
+                    <p>Email : {user.email}</p>
+                </div> 
+                : 
+                <Navigate to="/signIn"/>
+            }
+        </>
     )
 }
 
