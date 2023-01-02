@@ -23,14 +23,15 @@ const Home = () => {
      let raw_response = await fetch("https://api.themoviedb.org/3/movie/popular?api_key="+keys.tmdbApiKey);
      let response = await raw_response.json();
      let results = response.results;
-        let movies = results.map((ele)=>{
+        let movies = results.map((movie)=>{
           return {
-              id:ele.id,
-              movieName:ele.original_title,
-              rating:ele.vote_average,
-              poster:"http://image.tmdb.org/t/p/w500/"+ele.poster_path,
-              description:ele.overview,
-              yourRating:0
+              id:movie.id,
+              movieName:movie.original_title,
+              rating:movie.vote_average,
+              poster:"http://image.tmdb.org/t/p/w500/"+movie.poster_path,
+              description:movie.overview,
+              yourRating:0,
+              isFavorite:false
           }
         })
         localStorage.setItem("popularMovies",JSON.stringify(movies));
@@ -41,7 +42,20 @@ const Home = () => {
     }
     }
 
-    function updateYourRating(event, movie_id) {
+    function updateFavorites(event,movieId){
+        const isChecked = event.target.checked
+
+        updatePopularMovies(prevMovies => {
+            let popularMovies = prevMovies.map(movie=> {
+                 return movie.id === movieId ? {...movie, isFavorite:isChecked} : movie
+               })
+               localStorage.setItem("popularMovies",JSON.stringify(popularMovies));
+               return popularMovies;
+        })
+
+    }
+
+    function updateYourRating(event, movieId) {
         const value = event.target.value
         console.log(value)
         const yesOrNo = /^([0-9]+)$/.test(value)
@@ -50,7 +64,7 @@ const Home = () => {
         
         updatePopularMovies(prevMovies => {
             let popularMovies = prevMovies.map(movie=> {
-                 return movie.id === movie_id ? {...movie, yourRating:newRating} : movie
+                 return movie.id === movieId ? {...movie, yourRating:newRating} : movie
                })
                localStorage.setItem("popularMovies",JSON.stringify(popularMovies));
                return popularMovies;
@@ -65,6 +79,7 @@ const Home = () => {
                 key={movie.id}
                 movie={movie}
                 updateYourRating={updateYourRating}
+                updateIsFavorite={updateFavorites} 
             />)
                 })
             }

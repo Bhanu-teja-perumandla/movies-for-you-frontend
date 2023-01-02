@@ -19,7 +19,7 @@ const SignIn = (props)=>{
            if(user.email===newUser.email && user.password===newUser.password){
               message = ""
               setIsSignedIn(true)
-              props.setCurrentUser({
+              props.signInUser({
                   name:`${user.firstName} ${user.lastName}`,
                   email: user.email
               })

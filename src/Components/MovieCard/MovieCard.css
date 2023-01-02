@@ -51,7 +51,12 @@
     font-weight: 800;
 }
 
-.your-rating {
+.your-rating, .favorite {
     font-weight: 600;
     font-size: 1.20em;
+}
+
+#isFavorite, .favorite{
+    vertical-align: middle;
+    margin-top: 3px;
 }

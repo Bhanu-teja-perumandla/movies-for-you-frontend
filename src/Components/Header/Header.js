@@ -17,10 +17,10 @@ const Header = (props)=>{
             <div className="nav-right-options">
                 <Link to="/favs" className="route-link">Favorites</Link>
                 <div className="dropdown">
-                <Link to="/"
+                <div
                 onMouseEnter={myFunction}
                 onMouseLeave={myFunction}
-                className="route-link">Options</Link>
+                className="route-link">Options</div>
                 <div id="myDropdown" className={`dropdown-content ${showProfileOptions?"show":""}`} onMouseLeave={myFunction}>
                     <Link to="/profile" onClick = {myFunction} className="profile-links">My Profile</Link>
                     <Link 
@@ -28,7 +28,7 @@ const Header = (props)=>{
                         onClick = {
                                 user? 
                                 ()=>{
-                                    props.setCurrentUser(null); 
+                                    props.signOutUser(); 
                                     myFunction()
                                 }:myFunction
                             } 
