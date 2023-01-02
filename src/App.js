@@ -20,14 +20,15 @@ function App() {
     setCurrentUser(null)
     localStorage.removeItem("currentUser")
   }
+
   return (
     <UserContext.Provider value={currentUser}>
       <Router>
         <Header signOutUser={signOutUser}/>
         <Routes>
-          <Route exact path="/" element={<Home/>}/>
+          <Route exact path="/" element={<Home displayFavorites={false}/>}/>
           <Route exact path="/profile" element={<Profile/>}/>
-          <Route exact path="/favs" element={<Favorites/>}/>
+          <Route exact path="/favs" element={<Home displayFavorites={true} />}/>
           <Route exact path="/signUp" element={<SignUp/>}/>
           <Route exact path="/signIn" element={<SignIn signInUser={signInUser}/>}/>
           <Route exact path="*" element={<h1>Not found</h1>}/>

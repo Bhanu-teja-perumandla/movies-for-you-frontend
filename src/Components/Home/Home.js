@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import MovieCard from "../MovieCard/MovieCard";
 import keys from "../../access-info"
 import "./Home.css"
+import Favorites from "../Favorites/Favorites";
 
 
-const Home = () => {
+const Home = (props) => {
     
     const [popularMovies, updatePopularMovies] = useState([]);
    
@@ -73,17 +74,28 @@ const Home = () => {
     }
 
     return(
-     <div className="movies-list">
-         {popularMovies.map((movie)=>{
-            return (<MovieCard 
-                key={movie.id}
-                movie={movie}
+     <>
+         {props.displayFavorites ? 
+            <Favorites 
+                popularMovies={popularMovies}
                 updateYourRating={updateYourRating}
-                updateIsFavorite={updateFavorites} 
-            />)
-                })
-            }
-    </div>);
+                updateFavorites={updateFavorites} 
+            />
+            :  
+            <div className="movies-list">
+                {
+                    popularMovies.map((movie)=>{
+                                    return (<MovieCard 
+                                        key={movie.id}
+                                        movie={movie}
+                                        updateYourRating={updateYourRating}
+                                        updateIsFavorite={updateFavorites} 
+                                    />)
+                                })
+                 }
+            </div>
+         }
+    </>);
 }
 
 export default Home;

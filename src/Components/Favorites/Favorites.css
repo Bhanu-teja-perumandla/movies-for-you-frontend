@@ -1,10 +1,20 @@
 .favorites {
-    width: 200px;
-    background-color: rgb(252, 253, 186);
-    border: 3px solid grey;
     border-radius: 10px;
     text-align: center;
-    margin: 20px auto;
+    margin: 0 auto 20px auto;
     font-weight: 500;
     font-size: 2em;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.favorite-heading {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 1.2em;
 }
