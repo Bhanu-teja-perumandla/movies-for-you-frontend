@@ -5,15 +5,15 @@ import "./Profile.css"
 
 const Profile = () => {
 
-    const user = useContext(UserContext)
+    const {currentUser} = useContext(UserContext)
     return (
         <>
             {
-                user? 
+                currentUser? 
                 <div className="profile">
                     <h2>Profile</h2>
-                    <p>Name  : {user.name}</p>
-                    <p>Email : {user.email}</p>
+                    <p>Name  : {currentUser.name}</p>
+                    <p>Email : {currentUser.email}</p>
                 </div> 
                 : 
                 <Navigate to="/signIn"/>

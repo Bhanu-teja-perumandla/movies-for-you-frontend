@@ -5,10 +5,10 @@ import MovieCard from "../MovieCard/MovieCard";
 import "./Favorites.css"
 
 const Favorites = (props) => {
-    const {currentUser, userDetails, updateUserDetails} = useContext(UserContext);
+    const {currentUser, userDetails} = useContext(UserContext);
 
     const {popularMovies,updateYourRating,updateFavorites} = props;
-    const favMovies = popularMovies.filter(movie=> userDetails.favMovies.includes(movie.id))
+    const favMovies = currentUser?popularMovies.filter(movie=> userDetails.favMovies.includes(movie.id)):[]
 
     
     return (
@@ -23,7 +23,8 @@ const Favorites = (props) => {
                         {favMovies.map(movie => <MovieCard
                             key={movie.id}
                             movie={movie}
-                            isFavorite={true}
+                            isFavorite={currentUser?(userDetails.favMovies??[]).includes(movie.id):false}
+                            yourRating={currentUser?(((userDetails.ratings??[]).find(movieRating=>movieRating.movieId===movie.id)??{rating:0}).rating):0}
                             updateYourRating={updateYourRating}
                             updateIsFavorite={updateFavorites}
                         />)}

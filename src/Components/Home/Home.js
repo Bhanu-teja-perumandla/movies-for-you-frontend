@@ -33,7 +33,6 @@ const Home = (props) => {
               rating:movie.vote_average,
               poster:"http://image.tmdb.org/t/p/w500/"+movie.poster_path,
               description:movie.overview,
-              yourRating:0,
           }
         })
         localStorage.setItem("popularMovies",JSON.stringify(movies));
@@ -73,13 +72,25 @@ const Home = (props) => {
         let newRating = yesOrNo ? (value>10? 10: (value.length>2? value.substring(1, value.length): value)): 0
         console.log(newRating)
         
-        updatePopularMovies(prevMovies => {
-            let popularMovies = prevMovies.map(movie=> {
-                 return movie.id === movieId ? {...movie, yourRating:newRating} : movie
-               })
-               localStorage.setItem("popularMovies",JSON.stringify(popularMovies));
-               return popularMovies;
-        })
+        // updatePopularMovies(prevMovies => {
+        //     let popularMovies = prevMovies.map(movie=> {
+        //          return movie.id === movieId ? {...movie, yourRating:newRating} : movie
+        //        })
+        //        localStorage.setItem("popularMovies",JSON.stringify(popularMovies));
+        //        return popularMovies;
+        // })
+        if (userDetails.ratings.find(movieRating=>movieRating.movieId===movieId)) {
+            let newRatings = userDetails.ratings.map(movieRating=>
+                (movieRating.movieId==movieId?
+                   {
+                            ...movieRating,
+                            rating:newRating
+                    }: movieRating))
+            updateUserDetails({...userDetails,ratings:newRatings})
+       }
+       else {
+           updateUserDetails({...userDetails, ratings: [...userDetails.ratings,{movieId:movieId,rating:newRating}]})
+       }
 
     }
 
@@ -98,7 +109,8 @@ const Home = (props) => {
                                     return (<MovieCard 
                                         key={movie.id}
                                         movie={movie}
-                                        isFavorite={userDetails.favMovies.includes(movie.id)}
+                                        isFavorite={currentUser?(userDetails.favMovies??[]).includes(movie.id):false}
+                                        yourRating={currentUser?(((userDetails.ratings??[]).find(movieRating=>movieRating.movieId===movie.id)??{rating:0}).rating):0}
                                         updateYourRating={updateYourRating}
                                         updateIsFavorite={updateFavorites} 
                                     />)
