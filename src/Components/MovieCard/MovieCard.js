@@ -1,7 +1,7 @@
 import "./MovieCard.css"
 
 const MovieCard = (props) => {
-    const {id,poster,movieName,rating,description,yourRating,isFavorite} = props.movie
+    const {id,poster,movieName,rating,description,yourRating} = props.movie
 
     return (
         <div className="movie-card">
@@ -9,7 +9,7 @@ const MovieCard = (props) => {
             <h1 className="movie-title">{movieName}</h1>
             <h4 className="movie-rating">{rating}/10</h4>
             <label htmlFor="your-rating" className="your-rating">Your Rating <input type="text" id="your-rating" value={yourRating} onChange={(event)=>props.updateYourRating(event,id)}/> Stars</label>
-            <label htmlFor="favorite" className="favorite">Favorite <input id="isFavorite" type="checkbox" checked={isFavorite} onChange={(event)=>props.updateIsFavorite(event,id)}/></label>
+            <label htmlFor="favorite" className="favorite">Favorite <input id="isFavorite" type="checkbox" checked={props.isFavorite} onChange={(event)=>props.updateIsFavorite(event,id)}/></label>
             <p className="movie-description">{description}</p>
         </div>
     )

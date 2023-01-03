@@ -4,7 +4,7 @@ import "./SignIn.css"
 import { UserContext } from "../../App";
 
 const SignIn = (props)=>{
-    const user = useContext(UserContext);
+    const user = useContext(UserContext).currentUser;
     const [isSignedIn, setIsSignedIn] = useState(user?true:false)
     const [message, setMessage] = useState("")
     function handleSubmit(event) {

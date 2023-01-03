@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import MovieCard from "../MovieCard/MovieCard";
 import keys from "../../access-info"
 import "./Home.css"
 import Favorites from "../Favorites/Favorites";
+import { UserContext } from "../../App";
 
 
 const Home = (props) => {
     
+    const {currentUser, userDetails, updateUserDetails} = useContext(UserContext);
     const [popularMovies, updatePopularMovies] = useState([]);
    
     useEffect(()=>{
@@ -32,7 +34,6 @@ const Home = (props) => {
               poster:"http://image.tmdb.org/t/p/w500/"+movie.poster_path,
               description:movie.overview,
               yourRating:0,
-              isFavorite:false
           }
         })
         localStorage.setItem("popularMovies",JSON.stringify(movies));
@@ -46,13 +47,22 @@ const Home = (props) => {
     function updateFavorites(event,movieId){
         const isChecked = event.target.checked
 
-        updatePopularMovies(prevMovies => {
-            let popularMovies = prevMovies.map(movie=> {
-                 return movie.id === movieId ? {...movie, isFavorite:isChecked} : movie
-               })
-               localStorage.setItem("popularMovies",JSON.stringify(popularMovies));
-               return popularMovies;
-        })
+        // updatePopularMovies(prevMovies => {
+        //     let popularMovies = prevMovies.map(movie=> {
+        //          return movie.id === movieId ? {...movie, isFavorite:isChecked} : movie
+        //        })
+        //        localStorage.setItem("popularMovies",JSON.stringify(popularMovies));
+        //        return popularMovies;
+        // })
+        if (isChecked) {
+             updateUserDetails({...userDetails, favMovies: [...userDetails.favMovies, movieId]})
+        }
+        else {
+            let newFavMovies = userDetails.favMovies
+            let index = newFavMovies.indexOf(movieId)
+            newFavMovies.splice(index,1)
+            updateUserDetails({...userDetails, favMovies: newFavMovies})
+        }
 
     }
 
@@ -88,6 +98,7 @@ const Home = (props) => {
                                     return (<MovieCard 
                                         key={movie.id}
                                         movie={movie}
+                                        isFavorite={userDetails.favMovies.includes(movie.id)}
                                         updateYourRating={updateYourRating}
                                         updateIsFavorite={updateFavorites} 
                                     />)

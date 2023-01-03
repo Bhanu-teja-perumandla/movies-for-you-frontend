@@ -6,12 +6,30 @@ import Home from './Components/Home/Home';
 import Profile from './Components/Profile/Profile';
 import SignUp from './Components/SignUp/SignUp';
 import SignIn from './Components/SignIn/SignIn';
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 export const UserContext = createContext();
 
 function App() {
   const [currentUser,setCurrentUser] = useState(JSON.parse(localStorage.getItem("currentUser")));
+
+  let [userDetails, setUserDetails] = useState(null)
+
+ console.log("current user :",currentUser," userDetails :",userDetails)
+  useEffect(()=>{
+    let newUserDetails = []
+    if (currentUser) {
+      let allDetails = JSON.parse(localStorage.getItem("users")).find(userDetails => userDetails.email === currentUser.email)
+      newUserDetails =  {
+        email: allDetails.email,
+        favMovies: allDetails.favMovies?? [],
+        ratings: allDetails.ratings?? []
+      }
+    }
+    setUserDetails(newUserDetails)
+
+  },[currentUser])
+
   const signInUser = (user)=>{
     setCurrentUser(user)
     localStorage.setItem("currentUser",JSON.stringify(user))
@@ -21,8 +39,29 @@ function App() {
     localStorage.removeItem("currentUser")
   }
 
+  function updateUserDetails(updatedUserDetails) {
+    console.log("user details updated", updatedUserDetails, currentUser)
+    setUserDetails(updatedUserDetails)
+    let users = JSON.parse(localStorage.getItem("users"))
+    let newUsers = users.map(user =>
+      user.email === updatedUserDetails.email ? 
+                    {...user,
+                      ...updatedUserDetails
+                    } : user
+    )
+    console.log(newUsers)
+    localStorage.setItem("users", JSON.stringify(newUsers))
+  }
+
+
   return (
-    <UserContext.Provider value={currentUser}>
+    <UserContext.Provider 
+       value={{
+        currentUser: currentUser,
+        userDetails: userDetails, 
+        updateUserDetails: updateUserDetails
+      }}
+    >
       <Router>
         <Header signOutUser={signOutUser}/>
         <Routes>

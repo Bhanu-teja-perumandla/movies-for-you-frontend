@@ -9,7 +9,7 @@ const Header = (props)=>{
         setProfileOptions(prev => !prev);
       }
 
-    const user = useContext(UserContext)
+    const user = useContext(UserContext).currentUser
 
     return(
         <nav className="header-nav">
