@@ -18,7 +18,6 @@ const Home = (props) => {
     let make_api_call = async ()=>{
     if (JSON.parse(localStorage.getItem("popularMovies"))){
         let popularMovies = JSON.parse(localStorage.getItem("popularMovies"))
-        console.log("getting values from local storage");
         updatePopularMovies(popularMovies)
     }
     else{
@@ -44,15 +43,8 @@ const Home = (props) => {
     }
 
     function updateFavorites(event,movieId){
-        const isChecked = event.target.checked
+        const isChecked = event.target.isChecked
 
-        // updatePopularMovies(prevMovies => {
-        //     let popularMovies = prevMovies.map(movie=> {
-        //          return movie.id === movieId ? {...movie, isFavorite:isChecked} : movie
-        //        })
-        //        localStorage.setItem("popularMovies",JSON.stringify(popularMovies));
-        //        return popularMovies;
-        // })
         if (isChecked) {
              updateUserDetails({...userDetails, favMovies: [...userDetails.favMovies, movieId]})
         }
@@ -67,18 +59,9 @@ const Home = (props) => {
 
     function updateYourRating(event, movieId) {
         const value = event.target.value
-        console.log(value)
         const yesOrNo = /^([0-9]+)$/.test(value)
         let newRating = yesOrNo ? (value>10? 10: (value.length>2? value.substring(1, value.length): value)): 0
-        console.log(newRating)
-        
-        // updatePopularMovies(prevMovies => {
-        //     let popularMovies = prevMovies.map(movie=> {
-        //          return movie.id === movieId ? {...movie, yourRating:newRating} : movie
-        //        })
-        //        localStorage.setItem("popularMovies",JSON.stringify(popularMovies));
-        //        return popularMovies;
-        // })
+       
         if (userDetails.ratings.find(movieRating=>movieRating.movieId===movieId)) {
             let newRatings = userDetails.ratings.map(movieRating=>
                 (movieRating.movieId==movieId?

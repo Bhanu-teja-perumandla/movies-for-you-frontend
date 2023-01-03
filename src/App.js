@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
-import Favorites from './Components/Favorites/Favorites';
 import Header from './Components/Header/Header';
 import Home from './Components/Home/Home';
 import Profile from './Components/Profile/Profile';
@@ -15,7 +14,6 @@ function App() {
 
   let [userDetails, setUserDetails] = useState(null)
 
- console.log("current user :",currentUser," userDetails :",userDetails)
   useEffect(()=>{
     let newUserDetails = []
     if (currentUser) {
@@ -40,7 +38,6 @@ function App() {
   }
 
   function updateUserDetails(updatedUserDetails) {
-    console.log("user details updated", updatedUserDetails, currentUser)
     setUserDetails(updatedUserDetails)
     let users = JSON.parse(localStorage.getItem("users"))
     let newUsers = users.map(user =>
@@ -49,7 +46,6 @@ function App() {
                       ...updatedUserDetails
                     } : user
     )
-    console.log(newUsers)
     localStorage.setItem("users", JSON.stringify(newUsers))
   }
 
