@@ -49,3 +49,10 @@
 .signin-link:hover {
     color: black;
 }
+
+.invalid-message{
+    font-size: 0.8em;
+    color: red;
+    padding: 0px;
+    margin: 10px 0 0 0;
+}
