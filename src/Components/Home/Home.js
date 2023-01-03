@@ -43,7 +43,7 @@ const Home = (props) => {
     }
 
     function updateFavorites(event,movieId){
-        const isChecked = event.target.isChecked
+        const isChecked = event.target.checked
 
         if (isChecked) {
              updateUserDetails({...userDetails, favMovies: [...userDetails.favMovies, movieId]})

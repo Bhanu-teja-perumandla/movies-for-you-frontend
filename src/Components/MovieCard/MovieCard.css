@@ -60,3 +60,8 @@
     vertical-align: middle;
     margin-top: 3px;
 }
+
+#isFavorite {
+    color: red;
+    padding: 0;
+}

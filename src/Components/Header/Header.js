@@ -13,7 +13,7 @@ const Header = (props)=>{
 
     return(
         <nav className="header-nav">
-            <Link to="/" className="app-name">MoviesForYou</Link>
+            <Link to="/" className="app-name"><img src={require("../../images/MoviesForYou.png")} className="logo" alt="our app logo which contains a popcorn bucket"/>MoviesForYou</Link>
             <div className="nav-right-options">
                 <Link to="/favs" className="route-link">Favorites</Link>
                 <div className="dropdown">

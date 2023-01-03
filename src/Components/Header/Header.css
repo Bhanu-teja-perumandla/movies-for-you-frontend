@@ -6,6 +6,12 @@
     background-color:lavender;
     box-shadow: 1px 1px 10px grey;
 }
+
+.logo {
+    width: 35px;
+    vertical-align:text-top;
+    padding: 0 3px 0 0;
+}
 .nav-right-options{
     width: 180px;
     display: flex;
