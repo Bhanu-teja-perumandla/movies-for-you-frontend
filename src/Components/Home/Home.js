@@ -58,10 +58,7 @@ const Home = (props) => {
     }
 
     function updateYourRating(event, movieId) {
-        const value = event.target.value
-        const yesOrNo = /^([0-9]+)$/.test(value)
-        let newRating = yesOrNo ? (value>10? 10: (value.length>2? value.substring(1, value.length): value)): 0
-       
+        const newRating = Number(event.target.value)
         if (userDetails.ratings.find(movieRating=>movieRating.movieId===movieId)) {
             let newRatings = userDetails.ratings.map(movieRating=>
                 (movieRating.movieId==movieId?

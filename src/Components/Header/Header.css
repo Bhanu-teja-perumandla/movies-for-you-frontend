@@ -11,6 +11,7 @@
     width: 35px;
     vertical-align:text-top;
     padding: 0 3px 0 0;
+    filter: drop-shadow(2px 3px 3px grey);
 }
 .nav-right-options{
     width: 180px;
@@ -30,6 +31,7 @@
     margin: 0 10px;
     text-decoration: none;
     color: black;
+    text-shadow: 2px 3px 3px grey;
 }
 
 .route-link {
