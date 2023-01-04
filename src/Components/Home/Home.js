@@ -16,11 +16,11 @@ const Home = (props) => {
     },[]);
 
     let make_api_call = async ()=>{
-    if (JSON.parse(localStorage.getItem("popularMovies"))){
-        let popularMovies = JSON.parse(localStorage.getItem("popularMovies"))
-        updatePopularMovies(popularMovies)
-    }
-    else{
+    // if (JSON.parse(localStorage.getItem("popularMovies"))){
+    //     let popularMovies = JSON.parse(localStorage.getItem("popularMovies"))
+    //     updatePopularMovies(popularMovies)
+    // }
+    // else{
      try{
      let raw_response = await fetch("https://api.themoviedb.org/3/movie/popular?api_key="+keys.tmdbApiKey);
      let response = await raw_response.json();
@@ -34,12 +34,12 @@ const Home = (props) => {
               description:movie.overview,
           }
         })
-        localStorage.setItem("popularMovies",JSON.stringify(movies));
+        // localStorage.setItem("popularMovies",JSON.stringify(movies));
         updatePopularMovies(movies);
        }catch(e){
           console.log("error"+e)
         }
-    }
+    // }
     }
 
     function updateFavorites(event,movieId){
@@ -61,7 +61,7 @@ const Home = (props) => {
         const newRating = Number(event.target.value)
         if (userDetails.ratings.find(movieRating=>movieRating.movieId===movieId)) {
             let newRatings = userDetails.ratings.map(movieRating=>
-                (movieRating.movieId==movieId?
+                (movieRating.movieId===movieId?
                    {
                             ...movieRating,
                             rating:newRating
