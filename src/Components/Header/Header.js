@@ -16,12 +16,13 @@ const Header = (props)=>{
             <Link to="/" className="app-name"><img src={require("../../images/MoviesForYou.png")} className="logo" alt="our app logo which contains a popcorn bucket"/>MoviesForYou</Link>
             <div className="nav-right-options">
                 <Link to="/favs" className="route-link">Favorites</Link>
-                <div className="dropdown">
-                <div
+                <div className="dropdown"
                 onMouseEnter={myFunction}
-                onMouseLeave={myFunction}
+                onMouseLeave={myFunction}>
+                <div
                 className="route-link">Options</div>
-                <div id="myDropdown" className={`dropdown-content ${showProfileOptions?"show":""}`} onMouseLeave={myFunction}>
+                {showProfileOptions && <div id="myDropdown" className={`dropdown-content`} onMouseLeave={myFunction}>
+                {/* <div id="myDropdown" className={`dropdown-content ${showProfileOptions?"show":""}`} onMouseLeave={myFunction}> */}
                     <Link to="/profile" onClick = {myFunction} className="profile-links">My Profile</Link>
                     <Link 
                         to={user? "/":"/signIn"} 
@@ -36,7 +37,7 @@ const Header = (props)=>{
                     >
                         {user? "Sign Out":"Sign In"}
                     </Link>
-                </div>
+                </div>}
                 </div> 
             </div>
             

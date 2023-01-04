@@ -60,7 +60,10 @@
 
 
 .dropdown-content {
-display: none;
+/* display: none; */
+    display: flex;
+    flex-direction: column;
+
 position: absolute;
 background-color: #f1f1f1;
 justify-content: space-around;
@@ -82,7 +85,8 @@ text-decoration: none;
     border-radius: 3px;
 }
 
-.show {display: flex;
+.show {
+    display: flex;
     flex-direction: column;
 }
  
