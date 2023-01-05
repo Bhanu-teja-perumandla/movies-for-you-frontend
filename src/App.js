@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import './App.css';
 import Header from './Components/Header/Header';
 import Home from './Components/Home/Home';
@@ -65,7 +65,7 @@ function App() {
           <Route exact path="/profile" element={<Profile/>}/>
           <Route exact path="/favs" element={<Home displayFavorites={true} />}/>
           <Route exact path="/signUp" element={<SignUp/>}/>
-          <Route exact path="/signIn" element={<SignIn signInUser={signInUser}/>}/>
+          <Route exact path="/signIn" element={currentUser?<Navigate to="/"/>:<SignIn signInUser={signInUser}/>}/>
           <Route exact path="*" element={<h1>Not found</h1>}/>
         </Routes>
       </Router>
