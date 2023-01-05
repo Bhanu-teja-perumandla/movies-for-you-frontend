@@ -64,7 +64,7 @@ function App() {
           <Route exact path="/" element={<Home displayFavorites={false}/>}/>
           <Route exact path="/profile" element={<Profile/>}/>
           <Route exact path="/favs" element={<Home displayFavorites={true} />}/>
-          <Route exact path="/signUp" element={<SignUp/>}/>
+          <Route exact path="/signUp" element={currentUser?<Navigate to="/"/>:<SignUp/>}/>
           <Route exact path="/signIn" element={currentUser?<Navigate to="/"/>:<SignIn signInUser={signInUser}/>}/>
           <Route exact path="*" element={<h1>Not found</h1>}/>
         </Routes>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import "./SignUp.css"
 
 const SignUp = ()=>{
@@ -10,12 +10,11 @@ const SignUp = ()=>{
         password: "",
         confirmPassword: ""
     })
-    const [isSignedUp, setIsSignedUp] = useState(false)
     const [message, setMessage] = useState(null)
+    const navigate = useNavigate()
 
     function handleSubmit(event) {
         event.preventDefault()
-        console.log(userDetails)
         let message = ""
         let users = JSON.parse(localStorage.getItem("users")) || []
         if (users.find(user=> user.email === userDetails.email)) {
@@ -28,7 +27,7 @@ const SignUp = ()=>{
         if (!message) {
             users.push(userDetails)
             localStorage.setItem("users",JSON.stringify(users))
-            setIsSignedUp(true)
+            navigate("/signIn")
         }
     }
     function handleChange(event) {
@@ -43,7 +42,6 @@ const SignUp = ()=>{
     }
     return(
         <>
-            {isSignedUp && <Navigate to="/"/>}
             <form className="signup-form" onSubmit={handleSubmit}>
                 <input type="text" required={true} placeholder="First Name" id="firstName" className="form-input" onChange={handleChange}/>
                 <input type="text" required={true} placeholder="Last Name" id="lastName" className="form-input" onChange={handleChange}/>

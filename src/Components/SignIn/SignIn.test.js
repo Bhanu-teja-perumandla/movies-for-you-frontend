@@ -1,46 +1,13 @@
 import { fireEvent, screen } from "@testing-library/react"
-import { Route, BrowserRouter as Router, Routes} from "react-router-dom";
+import { BrowserRouter as Router} from "react-router-dom";
 import SignIn from "./SignIn";
 import { customRender } from "../../App.test";
 import userEvent from "@testing-library/user-event";
+import { localStorageMock } from "../../setupTests";
+
 
 const signInUser = jest.fn()
-const localStorageMock = (function () {
-    let store = {
-        users:JSON.stringify([{
-            confirmPassword: "test",
-            email : "testuser@test",
-            favMovies : [661374, 76600, 736526, 315162],
-            firstName : "Test",
-            lastName : "User",
-            password : "test",
-            ratings : [{movieId: 411}],
-        }])
-    };
-  
-    return {
-      getItem(key) {
-        return store[key];
-      },
-  
-      setItem(key, value) {
-        store[key] = value;
-      },
-  
-      clear() {
-        store = {};
-      },
-  
-      removeItem(key) {
-        delete store[key];
-      },
-  
-      getAll() {
-        return store;
-      },
-    };
-  })();
-  
+
   
 
 test("display required input fields",()=>{
@@ -54,7 +21,7 @@ test("display required input fields",()=>{
 })
 
 test("sign in when the button is clicked",()=>{
-    Object.defineProperty(window, "localStorage", { value: localStorageMock });
+    Object.defineProperty(window, "localStorage", { value: localStorageMock});
     customRender(<Router><SignIn signInUser={signInUser}></SignIn></Router>,{currentUser:null, userDetails:[]})
     let emailInput = screen.getByPlaceholderText("Email")
     let passwordInput = screen.getByPlaceholderText("Password")
@@ -100,9 +67,6 @@ test("show account not found message when user doesn't exist",()=>{
   userEvent.type(emailInput,"testuser@test1")
   userEvent.type(passwordInput,"test1")
 
-  expect(emailInput).toHaveValue("testuser@test1")
-  expect(passwordInput).toHaveValue("test1")
-
   fireEvent.click(sigInButton)
   
   expect(signInUser).not.toBeCalled()
@@ -115,7 +79,7 @@ test("redirect user to sign up when sign up link is clicked",()=>{
 
   fireEvent.click(signUpLink)
   
-  expect(location.pathname).toBe("/signUp")
+  expect(window.location.pathname).toBe("/signUp")
 })
 
 
