@@ -6,11 +6,14 @@ import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 import { FavMoviesContext, UserContext, YourRatingsContext } from './App';
 
+export const updateFavMovies = jest.fn();
+export const updateYourRatings = jest.fn();
+
 export function customRender(ui, userContext){
   return render(
     <UserContext.Provider value={userContext}>
-      <FavMoviesContext.Provider value={{favMovies:[],updateFavMovies:()=>{}}}>
-        <YourRatingsContext.Provider value={{yourRatings:[],updateYourRatings:()=>{}}}>
+      <FavMoviesContext.Provider value={{favMovies:[],updateFavMovies}}>
+        <YourRatingsContext.Provider value={{yourRatings:[],updateYourRatings}}>
           {ui}
         </YourRatingsContext.Provider>
       </FavMoviesContext.Provider>

@@ -4,19 +4,16 @@ import Header from "./Header"
 import { BrowserRouter as Router } from 'react-router-dom';
 import { customRender } from "../../setupTests";
 
-test("loads options on hover",async  ()=> {
-    customRender(<Router><Header signOutUser={()=>{}}/></Router>, {currentUser: {name: "test", email:"test@header"}, userDetails:[]})
+test("loads options on hover",()=> {
+    customRender(<Router><Header signOutUser={()=>{}}/></Router>, {currentUser: {name: "test", email:"test@header"}})
 
-    try{await userEvent.hover(screen.getByText("Options"))}
-    catch(e){
-        console.log(e)
-    }
+    userEvent.hover(screen.getByText("Options"))
     
     expect(screen.getByText("My Profile")).toBeTruthy()
 })
 
 test("does not display options without hover",async  ()=> {
-    customRender(<Router><Header signOutUser={()=>{}}/></Router>, {currentUser: {name: "test", email:"test@header"}, userDetails:[]})
+    customRender(<Router><Header signOutUser={()=>{}}/></Router>, {currentUser: {name: "test", email:"test@header"}})
 
     expect(screen.queryByText("My Profile")).toBeFalsy()
 })

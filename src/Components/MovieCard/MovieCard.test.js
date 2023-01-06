@@ -1,5 +1,5 @@
 import { fireEvent, screen } from "@testing-library/react"
-import { customRender } from "../../setupTests"
+import { customRender, updateFavMovies, updateYourRatings } from "../../setupTests"
 import MovieCard from "./MovieCard"
 
 const testMovie = {id:"123",
@@ -8,32 +8,28 @@ const testMovie = {id:"123",
     rating:7.5,
     description:"Description of the test movie"}
 
-const updateFavorites = jest.fn()
-
-const updateRatings = jest.fn()
-
 test("show option for user rating only when signed in",()=>{
-  customRender(<MovieCard movie={testMovie} isFavorite={true} yourRating={0} updateYourRating={()=>{}} updateIsFavorite={()=>{}}/>,{currentUser: {name: "test", email:"test@header"}, userDetails:[]})
+  customRender(<MovieCard movie={testMovie}/>,{currentUser: {name: "test", email:"test@header"}})
   expect(screen.getByTestId("your-rating")).toBeTruthy()
 })
 
 test("hide option for user rating when not signed in",()=>{
-    customRender(<MovieCard movie={testMovie} isFavorite={true} yourRating={0} updateYourRating={()=>{}} updateIsFavorite={()=>{}}/>,{currentUser: null, userDetails:[]})
+    customRender(<MovieCard movie={testMovie}/>,{currentUser: null})
     expect(screen.queryByTestId("your-rating")).toBeNull()
   })
 
 test("show option for favorite only when signed in",()=>{
-  customRender(<MovieCard movie={testMovie} isFavorite={true} yourRating={0} updateYourRating={()=>{}} updateIsFavorite={()=>{}}/>,{currentUser: {name: "test", email:"test@header"}, userDetails:[]})
+  customRender(<MovieCard movie={testMovie}/>,{currentUser: {name: "test", email:"test@header"}})
   expect(screen.getByTestId("favorite")).toBeTruthy()
 })
 
 test("hide option for favorite when not signed in",()=>{
-    customRender(<MovieCard movie={testMovie} isFavorite={true} yourRating={0} updateYourRating={()=>{}} updateIsFavorite={()=>{}}/>,{currentUser: null, userDetails:[]})
+    customRender(<MovieCard movie={testMovie}/>,{currentUser: null})
     expect(screen.queryByTestId("favorite")).toBeNull()
   })
 
 test("display movie details",()=>{
-  customRender(<MovieCard movie={testMovie} isFavorite={true} yourRating={0} updateYourRating={()=>{}} updateIsFavorite={()=>{}}/>,{currentUser: null, userDetails:[]})
+  customRender(<MovieCard movie={testMovie}/>,{currentUser: null})
   
   expect(screen.getAllByAltText("movie poster goes here")).toBeTruthy()
   expect(screen.getByText("TestMovie")).toBeTruthy()
@@ -42,23 +38,24 @@ test("display movie details",()=>{
 })
 
 test("toggle isFavorite checkbox when clicked",()=>{
-  customRender(<MovieCard movie={testMovie} isFavorite={true} yourRating={0} updateYourRating={()=>{}} updateIsFavorite={updateFavorites}/>,{currentUser: {name: "test", email:"test@header"}, userDetails:[]})
+  customRender(<MovieCard movie={testMovie} />,{currentUser: {name: "test", email:"test@header"}})
   let checkbox = screen.getByRole("checkbox")
-  expect(checkbox).toBeChecked()
+  
+  expect(checkbox).not.toBeChecked()
 
   fireEvent.click(checkbox)
 
-  expect(updateFavorites).toBeCalled()
+  expect(updateFavMovies).toBeCalled()
 
 })
 
 test("change your-rating when clicked",()=>{
-  customRender(<MovieCard movie={testMovie} isFavorite={true} yourRating={1} updateYourRating={updateRatings} updateIsFavorite={updateFavorites}/>,{currentUser: {name: "test", email:"test@header"}, userDetails:[]})
+  customRender(<MovieCard movie={testMovie}/>,{currentUser: {name: "test", email:"test@header"}})
   let ratings = screen.getAllByRole("radio")
 
-  expect(ratings[1]).toBeChecked()
+  expect(ratings[1]).not.toBeChecked()
 
   fireEvent.click(ratings[2])
 
-  expect(updateRatings).toBeCalled()
+  expect(updateYourRatings).toBeCalled()
 })

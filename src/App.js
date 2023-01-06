@@ -35,7 +35,7 @@ function App() {
   function updateYourRatings(movieId, rating) {
     const newRating = Number(rating)
     setYourRatings(prevRatings => {
-      if (prevRatings.find(movieRating=>movieRating.movieId===movieId)) {
+      if (prevRatings.find(movieRating=>movieRating.id===movieId)) {
         let newRatings = prevRatings.map(movieRating=>
             (movieRating.id===movieId?
                {

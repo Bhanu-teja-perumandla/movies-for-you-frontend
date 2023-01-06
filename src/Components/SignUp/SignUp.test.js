@@ -14,7 +14,7 @@ describe("signup tests",() => {
     )
 
     test("display sign up form",() => {
-        customRender(<Router><SignUp/></Router>,{currentUser:null, userDetails:[]})
+        customRender(<Router><SignUp/></Router>,{currentUser:null})
     
         expect(screen.getByPlaceholderText("First Name")).toBeTruthy();
         expect(screen.getByPlaceholderText("Last Name")).toBeTruthy();
@@ -28,7 +28,7 @@ describe("signup tests",() => {
     
     test("update form input fields when changed",() => {
        
-        customRender(<Router><SignUp/></Router>,{currentUser:null, userDetails:[]})
+        customRender(<Router><SignUp/></Router>,{currentUser:null})
     
         let firstNameEl = screen.getByPlaceholderText("First Name")
         let lastNameEl= screen.getByPlaceholderText("Last Name")
@@ -53,7 +53,7 @@ describe("signup tests",() => {
     })
     
     test("signup when details are correct",() => {
-        customRender(<Router><SignUp/></Router>,{currentUser:null, userDetails:[]})
+        customRender(<Router><SignUp/></Router>,{currentUser:null})
     
         let firstNameEl = screen.getByPlaceholderText("First Name")
         let lastNameEl= screen.getByPlaceholderText("Last Name")
@@ -74,7 +74,7 @@ describe("signup tests",() => {
     })
     
     test("show account already exists error when existing user signs up",() => {
-        customRender(<Router><SignUp/></Router>,{currentUser:null, userDetails:[]})
+        customRender(<Router><SignUp/></Router>,{currentUser:null})
     
         let firstNameEl = screen.getByPlaceholderText("First Name")
         let lastNameEl= screen.getByPlaceholderText("Last Name")
@@ -95,7 +95,7 @@ describe("signup tests",() => {
     })
 
     test("show mismatched passwords error when confirm password is different from password",() => {
-        customRender(<Router><SignUp/></Router>,{currentUser:null, userDetails:[]})
+        customRender(<Router><SignUp/></Router>,{currentUser:null})
     
         let firstNameEl = screen.getByPlaceholderText("First Name")
         let lastNameEl= screen.getByPlaceholderText("Last Name")
@@ -115,7 +115,7 @@ describe("signup tests",() => {
     })
 
     test("redirect user to signIn page when signIn link is clicked",() => {
-        customRender(<Router><SignUp/></Router>,{currentUser:null, userDetails:[]})
+        customRender(<Router><SignUp/></Router>,{currentUser:null})
         let signInLink = screen.getByRole("link");
         
         fireEvent.click(signInLink) 
