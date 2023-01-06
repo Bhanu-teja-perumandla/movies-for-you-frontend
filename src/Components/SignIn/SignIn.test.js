@@ -11,7 +11,7 @@ const signInUser = jest.fn()
   
 
 test("display required input fields",()=>{
-    customRender(<Router><SignIn signInUser={signInUser}></SignIn></Router>,{currentUser:null})
+    customRender(<Router><SignIn signInUser={signInUser}></SignIn></Router>,{userContext:{currentUser:null}})
     
     expect(screen.getByPlaceholderText("Email")).toBeTruthy();
     expect(screen.getByPlaceholderText("Password")).toBeTruthy();
@@ -22,7 +22,7 @@ test("display required input fields",()=>{
 
 test("sign in when the button is clicked",()=>{
     Object.defineProperty(window, "localStorage", { value: localStorageMock});
-    customRender(<Router><SignIn signInUser={signInUser}></SignIn></Router>,{currentUser:null})
+    customRender(<Router><SignIn signInUser={signInUser}></SignIn></Router>,{userContext:{currentUser:null}})
     let emailInput = screen.getByPlaceholderText("Email")
     let passwordInput = screen.getByPlaceholderText("Password")
     let sigInButton = screen.getByRole("button");
@@ -40,7 +40,7 @@ test("sign in when the button is clicked",()=>{
 
 test("show password incorrect message for wrong password",()=>{
   Object.defineProperty(window, "localStorage", { value: localStorageMock });
-  customRender(<Router><SignIn signInUser={signInUser}></SignIn></Router>,{currentUser:null})
+  customRender(<Router><SignIn signInUser={signInUser}></SignIn></Router>,{userContext:{currentUser:null}})
   let emailInput = screen.getByPlaceholderText("Email")
   let passwordInput = screen.getByPlaceholderText("Password")
   let sigInButton = screen.getByRole("button");
@@ -59,7 +59,7 @@ test("show password incorrect message for wrong password",()=>{
 
 test("show account not found message when user doesn't exist",()=>{
   Object.defineProperty(window, "localStorage", { value: localStorageMock });
-  customRender(<Router><SignIn signInUser={signInUser}></SignIn></Router>,{currentUser:null})
+  customRender(<Router><SignIn signInUser={signInUser}></SignIn></Router>,{userContext:{currentUser:null}})
   let emailInput = screen.getByPlaceholderText("Email")
   let passwordInput = screen.getByPlaceholderText("Password")
   let sigInButton = screen.getByRole("button");
@@ -74,7 +74,7 @@ test("show account not found message when user doesn't exist",()=>{
 })
 
 test("redirect user to sign up when sign up link is clicked",()=>{
-  customRender(<Router><SignIn signInUser={signInUser}></SignIn></Router>,{currentUser:null})
+  customRender(<Router><SignIn signInUser={signInUser}></SignIn></Router>,{userContext:{currentUser:null}})
   let signUpLink = screen.getByRole("link")
 
   fireEvent.click(signUpLink)

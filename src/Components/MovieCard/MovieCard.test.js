@@ -9,27 +9,27 @@ const testMovie = {id:"123",
     description:"Description of the test movie"}
 
 test("show option for user rating only when signed in",()=>{
-  customRender(<MovieCard movie={testMovie}/>,{currentUser: {name: "test", email:"test@header"}})
+  customRender(<MovieCard movie={testMovie}/>,{userContext:{currentUser: {name: "test", email:"test@header"}}})
   expect(screen.getByTestId("your-rating")).toBeTruthy()
 })
 
 test("hide option for user rating when not signed in",()=>{
-    customRender(<MovieCard movie={testMovie}/>,{currentUser: null})
+    customRender(<MovieCard movie={testMovie}/>,{userContext:{currentUser:null}})
     expect(screen.queryByTestId("your-rating")).toBeNull()
   })
 
 test("show option for favorite only when signed in",()=>{
-  customRender(<MovieCard movie={testMovie}/>,{currentUser: {name: "test", email:"test@header"}})
+  customRender(<MovieCard movie={testMovie}/>,{userContext:{currentUser: {name: "test", email:"test@header"}}})
   expect(screen.getByTestId("favorite")).toBeTruthy()
 })
 
 test("hide option for favorite when not signed in",()=>{
-    customRender(<MovieCard movie={testMovie}/>,{currentUser: null})
+    customRender(<MovieCard movie={testMovie}/>,{userContext:{currentUser:null}})
     expect(screen.queryByTestId("favorite")).toBeNull()
   })
 
 test("display movie details",()=>{
-  customRender(<MovieCard movie={testMovie}/>,{currentUser: null})
+  customRender(<MovieCard movie={testMovie}/>,{userContext:{currentUser:null}})
   
   expect(screen.getAllByAltText("movie poster goes here")).toBeTruthy()
   expect(screen.getByText("TestMovie")).toBeTruthy()
@@ -38,7 +38,7 @@ test("display movie details",()=>{
 })
 
 test("toggle isFavorite checkbox when clicked",()=>{
-  customRender(<MovieCard movie={testMovie} />,{currentUser: {name: "test", email:"test@header"}})
+  customRender(<MovieCard movie={testMovie} />,{userContext:{currentUser: {name: "test", email:"test@header"}}})
   let checkbox = screen.getByRole("checkbox")
   
   expect(checkbox).not.toBeChecked()
@@ -50,7 +50,7 @@ test("toggle isFavorite checkbox when clicked",()=>{
 })
 
 test("change your-rating when clicked",()=>{
-  customRender(<MovieCard movie={testMovie}/>,{currentUser: {name: "test", email:"test@header"}})
+  customRender(<MovieCard movie={testMovie}/>,{userContext:{currentUser: {name: "test", email:"test@header"}}})
   let ratings = screen.getAllByRole("radio")
 
   expect(ratings[1]).not.toBeChecked()

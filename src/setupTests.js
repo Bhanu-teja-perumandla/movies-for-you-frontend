@@ -9,11 +9,11 @@ import { FavMoviesContext, UserContext, YourRatingsContext } from './App';
 export const updateFavMovies = jest.fn();
 export const updateYourRatings = jest.fn();
 
-export function customRender(ui, userContext){
+export function customRender(ui, {userContext,favMovies,yourRatings}){
   return render(
     <UserContext.Provider value={userContext}>
-      <FavMoviesContext.Provider value={{favMovies:[],updateFavMovies}}>
-        <YourRatingsContext.Provider value={{yourRatings:[],updateYourRatings}}>
+      <FavMoviesContext.Provider value={{favMovies:favMovies??[],updateFavMovies}}>
+        <YourRatingsContext.Provider value={{yourRatings:yourRatings||[],updateYourRatings}}>
           {ui}
         </YourRatingsContext.Provider>
       </FavMoviesContext.Provider>
