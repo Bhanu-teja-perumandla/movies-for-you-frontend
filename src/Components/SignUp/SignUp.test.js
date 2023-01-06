@@ -2,19 +2,17 @@ import { fireEvent, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { BrowserRouter as Router} from "react-router-dom"
 import { customRender } from "../../App.test"
-import { localStorageMock } from "../../setupTests"
+
 
 
 import SignUp from "./SignUp"
+import { localStorageMock } from "../../setupTests"
 
 describe("signup tests",() => {
-    beforeAll(()=>{
-        Object.defineProperty(window, "localStorage", { value: localStorageMock });
-    })
-    beforeEach(()=>{
-        Object.defineProperty(window, "location", { value: {pathname: "/signUp"}});
-    })
-    
+    beforeEach(
+       ()=>{ Object.defineProperty(window, "localStorage", { value: localStorageMock})}
+    )
+
     test("display sign up form",() => {
         customRender(<Router><SignUp/></Router>,{currentUser:null, userDetails:[]})
     
@@ -54,26 +52,26 @@ describe("signup tests",() => {
         expect(confirmPasswordEl).toHaveValue("test")  
     })
     
-    // test("signup when details are correct",() => {
-    //     customRender(<Router><SignUp/></Router>,{currentUser:null, userDetails:[]})
+    test("signup when details are correct",() => {
+        customRender(<Router><SignUp/></Router>,{currentUser:null, userDetails:[]})
     
-    //     let firstNameEl = screen.getByPlaceholderText("First Name")
-    //     let lastNameEl= screen.getByPlaceholderText("Last Name")
-    //     let emailEl = screen.getByPlaceholderText("Email")
-    //     let paswordEl = screen.getByPlaceholderText("Password")
-    //     let confirmPasswordEl = screen.getByPlaceholderText("Confirm Password")
-    //     let signUpButton = screen.getByRole("button");
+        let firstNameEl = screen.getByPlaceholderText("First Name")
+        let lastNameEl= screen.getByPlaceholderText("Last Name")
+        let emailEl = screen.getByPlaceholderText("Email")
+        let paswordEl = screen.getByPlaceholderText("Password")
+        let confirmPasswordEl = screen.getByPlaceholderText("Confirm Password")
+        let signUpButton = screen.getByRole("button");
         
-    //     userEvent.type(firstNameEl,"New")
-    //     userEvent.type(lastNameEl,"User")
-    //     userEvent.type(emailEl,"testuser@test3")
-    //     userEvent.type(paswordEl,"test")
-    //     userEvent.type(confirmPasswordEl,"test")
-    
-    //     fireEvent.click(signUpButton) 
-    
-    //     expect(window.location.pathname).toBe("/signIn")    
-    // })
+        userEvent.type(firstNameEl,"New")
+        userEvent.type(lastNameEl,"User")
+        userEvent.type(emailEl,"testuser@test1")
+        userEvent.type(paswordEl,"test")
+        userEvent.type(confirmPasswordEl,"test")
+       
+        fireEvent.click(signUpButton) 
+        
+        expect(window.location.pathname).toBe("/signIn")    
+    })
     
     test("show account already exists error when existing user signs up",() => {
         customRender(<Router><SignUp/></Router>,{currentUser:null, userDetails:[]})
@@ -90,10 +88,39 @@ describe("signup tests",() => {
         userEvent.type(emailEl,"testuser@test")
         userEvent.type(paswordEl,"test")
         userEvent.type(confirmPasswordEl,"test")
-    
-        // fireEvent.click(signUpButton) 
+        fireEvent.click(signUpButton) 
+
         
-        expect(window.location.pathname).toBe("/signUp")
+        expect(screen.getByText("Email already exists")).toBeTruthy();
+    })
+
+    test("show mismatched passwords error when confirm password is different from password",() => {
+        customRender(<Router><SignUp/></Router>,{currentUser:null, userDetails:[]})
+    
+        let firstNameEl = screen.getByPlaceholderText("First Name")
+        let lastNameEl= screen.getByPlaceholderText("Last Name")
+        let emailEl = screen.getByPlaceholderText("Email")
+        let paswordEl = screen.getByPlaceholderText("Password")
+        let confirmPasswordEl = screen.getByPlaceholderText("Confirm Password")
+        let signUpButton = screen.getByRole("button");
+        
+        userEvent.type(firstNameEl,"New")
+        userEvent.type(lastNameEl,"User")
+        userEvent.type(emailEl,"testuser@test3")
+        userEvent.type(paswordEl,"test")
+        userEvent.type(confirmPasswordEl,"testconfirm")
+        fireEvent.click(signUpButton) 
+
+        expect(screen.getByText("Passwords do not match")).toBeTruthy();
+    })
+
+    test("redirect user to signIn page when signIn link is clicked",() => {
+        customRender(<Router><SignUp/></Router>,{currentUser:null, userDetails:[]})
+        let signInLink = screen.getByRole("link");
+        
+        fireEvent.click(signInLink) 
+
+        expect(window.location.pathname).toBe("/signIn")
     })
     
 })

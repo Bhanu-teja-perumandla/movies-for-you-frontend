@@ -7,3 +7,5 @@ fileignoreconfig:
   checksum: bd93a98d84998ec27012319b1d74e71ac3bd0c4077d9407e339977b32c70d23a
 - filename: yarn.lock
   checksum: f9493126056647147c5e6564277bf3dd5092c7dd089e17bdc86e2701aa13ada7
+- filename: src/Components/SignUp/SignUp.test.js
+  checksum: 3e4a200839d4006d353546b659889b15baf3859082c55e6776ad817ec8f77398
