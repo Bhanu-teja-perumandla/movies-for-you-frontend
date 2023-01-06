@@ -1,7 +1,7 @@
 import { fireEvent, screen } from "@testing-library/react"
 import { BrowserRouter as Router} from "react-router-dom";
 import SignIn from "./SignIn";
-import { customRender } from "../../App.test";
+import { customRender } from "../../setupTests"
 import userEvent from "@testing-library/user-event";
 import { localStorageMock } from "../../setupTests";
 

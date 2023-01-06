@@ -5,28 +5,17 @@ import Home from './Components/Home/Home';
 import Profile from './Components/Profile/Profile';
 import SignUp from './Components/SignUp/SignUp';
 import SignIn from './Components/SignIn/SignIn';
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useState } from 'react';
+import Favorites from './Components/Favorites/Favorites';
 
 export const UserContext = createContext();
+export const FavMoviesContext = createContext();
+export const YourRatingsContext = createContext();
 
 function App() {
   const [currentUser,setCurrentUser] = useState(JSON.parse(localStorage.getItem("currentUser")));
-
-  let [userDetails, setUserDetails] = useState(null)
-
-  useEffect(()=>{
-    let newUserDetails = []
-    if (currentUser) {
-      let allDetails = JSON.parse(localStorage.getItem("users")).find(userDetails => userDetails.email === currentUser.email)
-      newUserDetails =  {
-        email: allDetails.email,
-        favMovies: allDetails.favMovies?? [],
-        ratings: allDetails.ratings?? []
-      }
-    }
-    setUserDetails(newUserDetails)
-
-  },[currentUser])
+  const [favMovies, setFavMovies] = useState([])
+  const [yourRatings, setYourRatings] = useState([])
 
   const signInUser = (user)=>{
     setCurrentUser(user)
@@ -37,16 +26,28 @@ function App() {
     localStorage.removeItem("currentUser")
   }
 
-  function updateUserDetails(updatedUserDetails) {
-    setUserDetails(updatedUserDetails)
-    let users = JSON.parse(localStorage.getItem("users"))
-    let newUsers = users.map(user =>
-      user.email === updatedUserDetails.email ? 
-                    {...user,
-                      ...updatedUserDetails
-                    } : user
-    )
-    localStorage.setItem("users", JSON.stringify(newUsers))
+  function updateFavMovies(movieId) {
+     setFavMovies(prevFavs => {
+      return prevFavs.includes(movieId) ? prevFavs.filter(id => id!== movieId) : [...prevFavs, movieId]
+     })
+  }
+
+  function updateYourRatings(movieId, rating) {
+    const newRating = Number(rating)
+    setYourRatings(prevRatings => {
+      if (prevRatings.find(movieRating=>movieRating.movieId===movieId)) {
+        let newRatings = prevRatings.map(movieRating=>
+            (movieRating.id===movieId?
+               {
+                        ...movieRating,
+                        rating:newRating
+                }: movieRating))
+        return newRatings
+      }
+      else {
+          return [...prevRatings,{id:movieId,rating:newRating}]
+      }
+    })
   }
 
 
@@ -54,21 +55,23 @@ function App() {
     <UserContext.Provider 
        value={{
         currentUser: currentUser,
-        userDetails: userDetails, 
-        updateUserDetails: updateUserDetails
       }}
     >
-      <Router>
-        <Header signOutUser={signOutUser}/>
-        <Routes>
-          <Route exact path="/" element={<Home displayFavorites={false}/>}/>
-          <Route exact path="/profile" element={<Profile/>}/>
-          <Route exact path="/favs" element={<Home displayFavorites={true} />}/>
-          <Route exact path="/signUp" element={currentUser?<Navigate to="/"/>:<SignUp/>}/>
-          <Route exact path="/signIn" element={currentUser?<Navigate to="/"/>:<SignIn signInUser={signInUser}/>}/>
-          <Route exact path="*" element={<h1>Not found</h1>}/>
-        </Routes>
-      </Router>
+      <FavMoviesContext.Provider value={{favMovies, updateFavMovies}}>
+        <YourRatingsContext.Provider value={{yourRatings, updateYourRatings}}>
+          <Router>
+            <Header signOutUser={signOutUser}/>
+            <Routes>
+              <Route exact path="/" element={<Home/>}/>
+              <Route exact path="/profile" element={<Profile/>}/>
+              <Route exact path="/favs" element={<Favorites/>}/>
+              <Route exact path="/signUp" element={currentUser?<Navigate to="/"/>:<SignUp/>}/>
+              <Route exact path="/signIn" element={currentUser?<Navigate to="/"/>:<SignIn signInUser={signInUser}/>}/>
+              <Route exact path="*" element={<h1>Not found</h1>}/>
+            </Routes>
+          </Router>
+        </YourRatingsContext.Provider>
+      </FavMoviesContext.Provider>
     </UserContext.Provider>
   );
 }

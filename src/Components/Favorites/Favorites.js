@@ -1,14 +1,16 @@
 import { useContext } from "react";
 import { Navigate } from "react-router-dom";
-import { UserContext } from "../../App";
+import { FavMoviesContext, UserContext } from "../../App";
+import { useAPI } from "../../Hooks/useAPI";
 import MovieCard from "../MovieCard/MovieCard";
 import "./Favorites.css"
 
-const Favorites = (props) => {
-    const {currentUser, userDetails} = useContext(UserContext);
+const Favorites = () => {
+    const {currentUser} = useContext(UserContext);
+    const favMovieIds = useContext(FavMoviesContext).favMovies
 
-    const {popularMovies,updateYourRating,updateFavorites} = props;
-    const favMovies = currentUser?popularMovies.filter(movie=> userDetails.favMovies.includes(movie.id)):[]
+    const [popularMovies] = useAPI();
+    const favMovies = currentUser?popularMovies.filter(movie=> favMovieIds.includes(movie.id)):[]
 
     
     return (
@@ -23,10 +25,6 @@ const Favorites = (props) => {
                         {favMovies.map(movie => <MovieCard
                             key={movie.id}
                             movie={movie}
-                            isFavorite={currentUser?(userDetails.favMovies??[]).includes(movie.id):false}
-                            yourRating={currentUser?(((userDetails.ratings??[]).find(movieRating=>movieRating.movieId===movie.id)??{rating:0}).rating):0}
-                            updateYourRating={updateYourRating}
-                            updateIsFavorite={updateFavorites}
                         />)}
                     </div> 
                 </div>

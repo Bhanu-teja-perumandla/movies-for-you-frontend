@@ -1,7 +1,7 @@
 import { fireEvent, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { BrowserRouter as Router} from "react-router-dom"
-import { customRender } from "../../App.test"
+import { customRender } from "../../setupTests"
 
 
 

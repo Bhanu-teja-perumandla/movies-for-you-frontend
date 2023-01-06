@@ -1,5 +1,5 @@
 import { fireEvent, screen } from "@testing-library/react"
-import { customRender } from "../../App.test"
+import { customRender } from "../../setupTests"
 import MovieCard from "./MovieCard"
 
 const testMovie = {id:"123",
