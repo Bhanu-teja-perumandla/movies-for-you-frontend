@@ -1,10 +1,12 @@
-import { useAPI } from "../../Hooks/useAPI";
+import { getMoviesFrom, useAPI } from "../../Hooks/useAPI";
+import { urls } from "../../urls";
 import MovieCard from "../MovieCard/MovieCard";
 import "./Home.css"
 
 
 const Home = () => {
-    const [popularMovies] = useAPI()
+    const [data] = useAPI(urls.popularMovies)
+    const popularMovies = getMoviesFrom(data)
 
     return(
         <div className="movies-list">
