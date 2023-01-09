@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useAPI } from "../../Hooks/useAPI";
 import MovieCard from "../MovieCard/MovieCard";
 import "./Home.css"

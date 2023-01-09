@@ -29,7 +29,6 @@ export function useAPI() {
      useEffect(()=>{
         let getMovies = async ()=> {
             let movies =  await make_api_call()
-            console.log("api called")
             setPopularMovies(movies)
          }
         getMovies()
