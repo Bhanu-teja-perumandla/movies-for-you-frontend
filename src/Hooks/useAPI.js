@@ -17,12 +17,9 @@ export function useAPI(url) {
     const [data, setData] = useState([])
 
      useEffect(()=>{
-        let getData = async ()=> {
-            let data =  await makeApiCall(url)
-            console.log("api called")
-            setData(data)
-         }
-        getData()
+        makeApiCall(url).then((data)=>{
+        console.log("api called")
+        setData(data)})
     },[url]);
     
     return [data]
