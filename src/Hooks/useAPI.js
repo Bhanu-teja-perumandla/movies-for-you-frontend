@@ -22,7 +22,7 @@ export function useAPI(url) {
         setData(data)})
     },[url]);
     
-    return [data]
+    return {data}
 }
 
 export function getMoviesFrom(data) {

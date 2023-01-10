@@ -10,7 +10,7 @@ const Favorites = () => {
     const {currentUser} = useContext(UserContext);
     const favMovieIds = useContext(FavMoviesContext).favMovies
 
-    const [data] = useAPI(urls.popularMovies);
+    const {data} = useAPI(urls.popularMovies);
     const popularMovies = getMoviesFrom(data)
     const favMovies = currentUser?popularMovies.filter(movie=> favMovieIds.includes(movie.id)):[]
 

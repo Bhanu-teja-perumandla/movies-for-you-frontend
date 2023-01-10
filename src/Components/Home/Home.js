@@ -5,7 +5,7 @@ import "./Home.css"
 
 
 const Home = () => {
-    const [data] = useAPI(urls.popularMovies)
+    const {data} = useAPI(urls.popularMovies)
     const popularMovies = getMoviesFrom(data)
 
     return(

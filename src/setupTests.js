@@ -56,3 +56,38 @@ export const localStorageMock = (function () {
       },
     };
   })();
+
+export const mockFetch = () => {
+    global.fetch = ()=>Promise.resolve(
+        {
+            json:()=>{
+                 return Promise.resolve({
+                    
+                       "page": 1,
+                        "results": [JamesBondMovie]
+                })
+            },
+        }
+    )
+}
+
+export const JamesBondMovie = {
+  "adult": false,
+  "backdrop_path": "/s16H6tpK2utvwDtzZ8Qy4qm5Emw.jpg",
+  "genre_ids":[
+    878,
+    12,
+    28,
+  ],
+  "id": 1007,
+  "original_language": "en",
+  "original_title": "James Bond",
+  "overview": "Bond is great",
+  "popularity": 5359.253,
+  "poster_path": "/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg",
+  "release_date": "2022-07-07",
+  "title": "James Bond",
+  "video": false,
+  "vote_average": 7.5,
+  "vote_count": 9999,
+} 
