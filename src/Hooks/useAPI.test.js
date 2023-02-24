@@ -4,16 +4,24 @@ import { urls } from "../urls"
 import { JamesBondMovie, mockFetch } from "../setupTests"
 
 test("useAPI state change",async ()=>{
-    mockFetch()
+    // mockFetch()
+    fetch.mockImplementationOnce(() =>
+    Promise.resolve({
+      json: () => {
+        return Promise.resolve({
+          page: 1,
+          results: [JamesBondMovie],
+        });
+      },
+    })
+  );
     const {result} = renderHook(()=>useAPI(urls.popularMovies))
     
     expect(result.current.data).toStrictEqual([])
     
     await waitFor(()=>{
         expect(result.current.data).toStrictEqual([JamesBondMovie])
-        console.log(result.current,"current")
     })
-    console.log(result.current,"current11")
 })
 
 // test("check if makeAPICall function is called",async ()=>{
