@@ -4,7 +4,6 @@ import { urls } from "../urls"
 import { JamesBondMovie, mockFetch } from "../setupTests"
 
 test("useAPI state change",async ()=>{
-    // mockFetch()
     fetch.mockImplementationOnce(() =>
     Promise.resolve({
       json: () => {

@@ -63,16 +63,7 @@ export const localStorageMock = (function () {
   };
 })();
 
-global.fetch = jest.fn(() =>
-  Promise.resolve({
-    json: () => {
-      return Promise.resolve({
-        page: 1,
-        results: [JamesBondMovie],
-      });
-    },
-  })
-);
+global.fetch = jest.fn();
 
 export const JamesBondMovie = {
   adult: false,
