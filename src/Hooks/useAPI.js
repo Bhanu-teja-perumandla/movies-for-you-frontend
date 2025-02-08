@@ -4,8 +4,7 @@ export const makeApiCall = async (url) => {
   let data = [];
   try {
     let raw_response = await fetch(url);
-    let response = await raw_response.json();
-    data = response.results;
+    data = await raw_response.json();
   } catch (e) {
     console.log("error" + e);
   }
@@ -25,13 +24,14 @@ export function useAPI(url) {
 }
 
 export function getMoviesFrom(data) {
+  console.log(data)
   return data.map((movie) => {
     return {
       id: movie.id,
-      movieName: movie.original_title,
-      rating: movie.vote_average,
-      poster: "http://image.tmdb.org/t/p/w500/" + movie.poster_path,
-      description: movie.overview,
+      movieName: movie.title,
+      rating: movie.rating,
+      poster: movie.poster,
+      description: movie.description,
     };
   });
 }
