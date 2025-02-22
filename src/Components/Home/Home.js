@@ -1,13 +1,13 @@
-import { getMoviesFrom, useAPI } from "../../Hooks/useAPI";
+import { useContext } from "react";
+import { useAPI } from "../../Hooks/useAPI";
 import { urls } from "../../urls";
 import MovieCard from "../MovieCard/MovieCard";
 import "./Home.css"
+import { PopularMovieContext } from "../../App";
 
 
 const Home = () => {
-    const {data} = useAPI(urls.popularMovies)
-    const popularMovies = getMoviesFrom(data)
-
+    const {popularMovies} = useContext(PopularMovieContext);
     return(
         <div className="movies-list">
             {

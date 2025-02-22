@@ -9,7 +9,7 @@ const Header = (props)=>{
         setProfileOptions(prev => !prev);
       }
 
-    const user = useContext(UserContext).currentUser
+    const user = useContext(UserContext).signedIn
 
     return(
         <nav className="header-nav">

@@ -1,38 +1,34 @@
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import { Link} from "react-router-dom";
 import "./SignIn.css"
+import { useAPI } from "../../Hooks/useAPI";
+import { urls } from "../../urls";
 
 const SignIn = (props)=>{
-    const [message, setMessage] = useState("")
+    const [message, setMessage] = useState("");
+    const [name, setName] = useState("");
+    const [password, setPassword] = useState("");
+    const {data, error, makeRequest} = useAPI();
    
-    function handleSubmit(event) {
-        let formElements = event.target.elements;
+    const handleSubmit = async (event) => {
         event.preventDefault()
-        let newUser = {
-            email : formElements.email.value,
-            password : formElements.password.value,
+        setMessage(""); 
+        makeRequest(urls.signIn, 'signin', {username: name, password: password});
+    };
+
+    useEffect(() => {
+        if (error) {
+            setMessage("Something went wrong, try again...");
+        } else if (data?.token) {
+            setMessage(""); 
+            props.signInUser({ name, token: data.token });
         }
-        let users = JSON.parse(localStorage.getItem("users"))||[]
-        let message  = "Account not found"
-        users.map(user => {
-           if(user.email===newUser.email && user.password===newUser.password){
-              message = ""
-              props.signInUser({
-                  name:`${user.firstName} ${user.lastName}`,
-                  email: user.email
-              })
-           }
-           else if(user.email===newUser.email ){
-               message = "Password incorrect"
-           }
-        });
-        setMessage(message)
-    }
+    }, [data, error]);
 
     return (
         <form onSubmit={handleSubmit} className="signin-form">
-             <input type="email" required={true} placeholder="Email" id="email" className="form-input" />
-             <input type="password" required={true} placeholder="Password" id="password" className="form-input"/>
+             <input type="name" value= {name} onChange={(e)=> setName(e.target.value)} required={true} placeholder="Username" id="name" className="form-input" />
+             <input type="password" value= {password} onChange={(e)=> setPassword(e.target.value)} required={true} placeholder="Password" id="password" className="form-input"/>
              <button className="signin-btn">Sign In</button>
              {message && <p data-testid="invalid-message" className="invalid-message">{message}</p>}
              <p className="signup-text">Don't have an account? <Link to="/signUp" className="signup-link">Sign Up</Link></p>

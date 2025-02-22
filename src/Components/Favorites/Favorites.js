@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Navigate } from "react-router-dom";
-import { FavMoviesContext, UserContext } from "../../App";
+import { FavMoviesContext, PopularMovieContext, UserContext } from "../../App";
 import { getMoviesFrom, useAPI } from "../../Hooks/useAPI";
 import { urls } from "../../urls";
 import MovieCard from "../MovieCard/MovieCard";
@@ -9,11 +9,8 @@ import "./Favorites.css"
 const Favorites = () => {
     const {currentUser} = useContext(UserContext);
     const favMovieIds = useContext(FavMoviesContext).favMovies
-
-    const {data} = useAPI(urls.popularMovies);
-    const popularMovies = getMoviesFrom(data)
+    const {popularMovies} = useContext(PopularMovieContext);
     const favMovies = currentUser?popularMovies.filter(movie=> favMovieIds.includes(movie.id)):[]
-
     
     return (
         <>
@@ -21,7 +18,7 @@ const Favorites = () => {
                 currentUser? 
                 <div className="favorite-heading">
                     
-                    <h2>{currentUser.name}'s favorites</h2>
+                    <h2>{currentUser}'s favorites</h2>
                     
                     <div className="favorites">
                         {favMovies.map(movie => <MovieCard
