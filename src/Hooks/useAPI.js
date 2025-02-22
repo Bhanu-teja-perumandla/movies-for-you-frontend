@@ -13,7 +13,6 @@ export const makeApiCall = async (url, method='GET', body=null, auth=true) => {
   };
   if(body) {
     options.body = JSON.stringify(body);
-    console.log("body after json: " + JSON.stringify(options));
   }
   try {
     const response = await fetch(url, options);
@@ -43,7 +42,7 @@ export function useAPI() {
     switch (reqType) {
       case 'movies': req = await api.get(url, false); break;
       case 'signin': req = await api.post(url, body, false); break;
-      case 'signup': req = await api.post(url, body); break;
+      case 'signup': req = await api.post(url, body, false); break;
       default: req = await api.get(url); break;
     }
     if(req.error) {
@@ -51,7 +50,7 @@ export function useAPI() {
       setData(null);
     } else {
       setData(req);
-      setError(error);
+      setError(null);
     }
   };
 
