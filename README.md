@@ -39,7 +39,7 @@ This frontend application is part of a full-stack project that allows users to:
 
 3. Create a `.env` file in the project root and add:
    ```
-   API_URL=http://localhost:8080
+   REACT_APP_API_URL=http://localhost:8080
    ```
 
 ## 🏃‍♂️ Running the Application
