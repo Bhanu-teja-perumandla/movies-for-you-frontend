@@ -7,7 +7,6 @@ import { Checkbox, Rating } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const MovieCard = (props) => {
-    const {currentUser} = useContext(UserContext);
     const navigate = useNavigate();
     const {favMovies, updateFavMovies} = useContext(FavMoviesContext);
     const {yourRatings, updateYourRatings} = useContext(YourRatingsContext);

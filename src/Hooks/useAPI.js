@@ -23,7 +23,7 @@ export const makeApiCall = async (url, method='GET', body=null, auth=true) => {
     return await response.json();
   } catch (e) {
     console.error("API Error:", e);
-    return { error: e.message }; 
+    return { error: e.message };
   }
 };
 

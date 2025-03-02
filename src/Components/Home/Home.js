@@ -1,6 +1,4 @@
 import { useContext } from "react";
-import { useAPI } from "../../Hooks/useAPI";
-import { urls } from "../../urls";
 import MovieCard from "../MovieCard/MovieCard";
 import "./Home.css"
 import { PopularMovieContext } from "../../App";

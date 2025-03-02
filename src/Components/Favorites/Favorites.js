@@ -1,8 +1,6 @@
 import { useContext } from "react";
 import { Navigate } from "react-router-dom";
 import { FavMoviesContext, PopularMovieContext, UserContext } from "../../App";
-import { getMoviesFrom, useAPI } from "../../Hooks/useAPI";
-import { urls } from "../../urls";
 import MovieCard from "../MovieCard/MovieCard";
 import "./Favorites.css"
 
